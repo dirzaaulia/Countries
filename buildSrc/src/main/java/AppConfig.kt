@@ -1,4 +1,5 @@
 object AppConfig {
+    const val applicationId = "com.dirzaaulia.countries"
     const val compileSdk = 33
     const val minSdk = 24
     const val targetSdk = 33

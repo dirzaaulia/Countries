@@ -26,7 +26,7 @@ android {
   compileSdk = AppConfig.compileSdk
 
   defaultConfig {
-    applicationId = "com.dirzaaulia.gamewish"
+    applicationId = AppConfig.applicationId
     minSdk = AppConfig.minSdk
     targetSdk = AppConfig.targetSdk
     versionCode = AppConfig.versionCode

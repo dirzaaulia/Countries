@@ -25,6 +25,7 @@ object Dependencies {
     }
 
     object AndroidX {
+        private const val appCompat = "androidx.appcompat:appcompat:1.5.1"
         private const val activityCompose = "androidx.activity:activity-compose:${Version.activityCompose}"
         private const val constraintLayoutCompose =
             "androidx.constraintlayout:constraintlayout-compose:${Version.constraintLayoutCompose}"
@@ -34,6 +35,7 @@ object Dependencies {
         private const val webkit = "androidx.webkit:webkit:${Version.webkit}"
 
         val implementation = arrayListOf<String>().apply {
+            add(appCompat)
             add(activityCompose)
             add(constraintLayoutCompose)
             add(coreKtx)

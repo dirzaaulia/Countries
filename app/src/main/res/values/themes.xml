@@ -3,7 +3,7 @@
 
   <style name="Theme.Material.DayNight.NoActionBar" parent="@android:style/Theme.Material.Light.NoActionBar" />
 
-  <style name="Theme.AllAboutValorant" parent="Theme.Material.DayNight.NoActionBar">
+  <style name="Theme.Countries" parent="Theme.Material.DayNight.NoActionBar">
     <item name="android:colorPrimary">#FF616161</item>
     <item name="android:colorAccent">#FF424242</item>
     <item name="android:statusBarColor">@color/immersive_sys_ui</item>
