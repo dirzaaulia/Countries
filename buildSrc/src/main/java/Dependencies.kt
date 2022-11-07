@@ -25,7 +25,7 @@ object Dependencies {
     }
 
     object AndroidX {
-        private const val appCompat = "androidx.appcompat:appcompat:1.5.1"
+        private const val appCompat = "androidx.appcompat:appcompat:${Version.appCompat}"
         private const val activityCompose = "androidx.activity:activity-compose:${Version.activityCompose}"
         private const val constraintLayoutCompose =
             "androidx.constraintlayout:constraintlayout-compose:${Version.constraintLayoutCompose}"
@@ -50,7 +50,7 @@ object Dependencies {
             private const val iconsExtended = "androidx.compose.material:material-icons-extended:${Version.compose}"
             private const val layout = "androidx.compose.foundation:foundation-layout:${Version.compose}"
             private const val livedata = "androidx.compose.runtime:runtime-livedata:${Version.compose}"
-            private const val material = "androidx.compose.material:material:${Version.compose}"
+            private const val material3 = "androidx.compose.material3:material3:${Version.material3Compose}"
             private const val runtime = "androidx.compose.runtime:runtime:${Version.compose}"
             private const val tooling = "androidx.compose.ui:ui-tooling:${Version.compose}"
             private const val ui = "androidx.compose.ui:ui:${Version.compose}"
@@ -64,7 +64,7 @@ object Dependencies {
                 add(iconsExtended)
                 add(layout)
                 add(livedata)
-                add(material)
+                add(material3)
                 add(runtime)
                 add(tooling)
                 add(ui)

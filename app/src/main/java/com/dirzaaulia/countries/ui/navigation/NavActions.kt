@@ -4,10 +4,12 @@ import androidx.navigation.NavHostController
 
 class NavActions(navHostController: NavHostController) {
 
-  val navigateToCountry: (Int) -> Unit = { index: Int ->
+  val navigateToCountry: (String, String) -> Unit = { name, iso2 ->
     NavScreen.Country.apply {
       navHostController.navigate(
-        routeWithArgument.replace("{$argument0}", index.toString())
+        routeWithArgument
+          .replace("{$argument0}", name)
+          .replace("{$argument1}", iso2)
       )
     }
   }

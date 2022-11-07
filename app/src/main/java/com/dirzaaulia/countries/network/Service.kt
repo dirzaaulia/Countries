@@ -6,8 +6,7 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.dirzaaulia.countries.data.model.Country
 import com.dirzaaulia.countries.utils.ServiceConstant
 import com.dirzaaulia.countries.utils.ServiceConstant.API_KEY
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.dirzaaulia.countries.utils.provideAdapter
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -50,9 +49,7 @@ interface Service {
         .retryOnConnectionFailure(false)
         .build()
 
-      val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+      val moshi = provideAdapter()
 
       return Retrofit.Builder()
         .baseUrl(ServiceConstant.BASE_URL)

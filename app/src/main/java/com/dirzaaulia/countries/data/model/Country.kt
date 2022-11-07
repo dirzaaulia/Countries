@@ -79,21 +79,22 @@ data class Country(
 		fun parseTranslationsFromJson(json: String?): Map<String, String>? {
 			val translations = json?.replace("""[\[\]]""".toRegex(), "")
 				?.parseJsonToObject<Transalations>()
-			return translations?.let { translations.setDataMap(it) }
+			return translations?.let { setDataMap(it) }
 		}
 
 		fun setDataMap(data: Country): Map<String, String> {
 			return mapOf(
-				"Phone Code" to data.phonecode.replaceIfNull(),
-				"Capital" to data.capital.replaceIfNull(),
-				"Currency" to data.currency.replaceIfNull(),
-				"Currency Name" to data.currencyName.replaceIfNull(),
-				"Currency Symbol" to data.currencySymbol.replaceIfNull(),
-				"Native" to data.native.replaceIfNull(),
-				"Region" to data.region.replaceIfNull(),
-				"Sub Region" to data.subregion.replaceIfNull(),
-				"Emoji" to data.emoji.replaceIfNull(),
-				"Emoji U" to data.emojiU.replaceIfNull()
+				"Flag" to "https://countryflagsapi.com/png/${data.iso3}",
+				"Phone Code" to data.phonecode.replaceIfNull("-"),
+				"Capital" to data.capital.replaceIfNull("-"),
+				"Currency" to data.currency.replaceIfNull("-"),
+				"Currency Name" to data.currencyName.replaceIfNull("-"),
+				"Currency Symbol" to data.currencySymbol.replaceIfNull("-"),
+				"Native" to data.native.replaceIfNull("-"),
+				"Region" to data.region.replaceIfNull("-"),
+				"Sub Region" to data.subregion.replaceIfNull("-"),
+				"Emoji" to data.emoji.replaceIfNull("-"),
+				"Emoji U" to data.emojiU.replaceIfNull("-")
 			)
 		}
 	}

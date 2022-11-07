@@ -3,28 +3,43 @@ package com.dirzaaulia.countries.ui.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.Surface
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
-import androidx.navigation.NavHostController
 import com.dirzaaulia.countries.ui.navigation.NavGraph
-import com.dirzaaulia.countries.ui.theme.AllAboutValorantTheme
+import com.dirzaaulia.countries.ui.theme.CountriesTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.material.color.DynamicColors
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-  private lateinit var navHostController: NavHostController
-
   override fun onCreate(savedInstanceState: Bundle?) {
     WindowCompat.setDecorFitsSystemWindows(window, false)
+
+    val isDynamicColor = DynamicColors.isDynamicColorAvailable()
 
     super.onCreate(savedInstanceState)
 
     setContent {
-      navHostController = rememberAnimatedNavController()
+      val navHostController = rememberAnimatedNavController()
 
-      AllAboutValorantTheme {
+      // Update the system bars to be translucent
+      val systemUiController = rememberSystemUiController()
+      val useDarkIcons = !isSystemInDarkTheme()
+      SideEffect {
+        systemUiController.setSystemBarsColor(
+          color = Color.Transparent,
+          darkIcons = useDarkIcons
+        )
+      }
+
+      CountriesTheme(isDynamicColor = isDynamicColor) {
         Surface {
           NavGraph(navHostController = navHostController)
         }

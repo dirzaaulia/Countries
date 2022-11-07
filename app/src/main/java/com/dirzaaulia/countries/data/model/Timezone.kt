@@ -23,10 +23,10 @@ data class Timezone(
   companion object {
     fun Timezone.setDataMap(): Map<String, String> {
       return mapOf(
-        "Zone Name" to this.zoneName.replaceIfNull(),
-        "GMT Offset Name" to this.gmtOffsetName.replaceIfNull(),
-        "Abbreviation" to this.abbreviation.replaceIfNull(),
-        "Timezone Name" to this.timezoneName.replaceIfNull()
+        "Zone Name" to this.zoneName.replaceIfNull("-"),
+        "GMT Offset Name" to this.gmtOffsetName.replaceIfNull("-"),
+        "Abbreviation" to this.abbreviation.replaceIfNull("-"),
+        "Timezone Name" to this.timezoneName.replaceIfNull("-")
       )
     }
   }

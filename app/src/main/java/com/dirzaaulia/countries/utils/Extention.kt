@@ -34,20 +34,26 @@ fun String.unicodeEmojiToHtmlEmoji(): CharSequence {
   }
 }
 
-inline fun <reified T> String.parseList(): List<T> {
-  val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-  val type = Types.newParameterizedType(List::class.java, T::class.java)
-  val adapter: JsonAdapter<List<T>> = moshi.adapter(type)
+fun provideAdapter(): Moshi =  Moshi.Builder()
+  .add(KotlinJsonAdapterFactory())
+  .build()
 
-  return adapter.fromJson(this) ?: emptyList()
+inline fun <reified T> String.parseList(): List<T>? {
+  val moshi = provideAdapter()
+  val type = Types.newParameterizedType(List::class.java, T::class.java)
+  val adapter: JsonAdapter<List<T>> = moshi
+    .adapter<List<T>?>(type)
+    .lenient()
+
+  return adapter.fromJson(this)
 }
 
 inline fun <reified T> String.parseJsonToObject(): T? {
-  val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
+  val moshi = provideAdapter()
 
-  return let { moshi.adapter(T::class.java)?.fromJson(this) }
+  return let {
+    moshi
+      .adapter(T::class.java)
+      .lenient()?.fromJson(this)
+  }
 }

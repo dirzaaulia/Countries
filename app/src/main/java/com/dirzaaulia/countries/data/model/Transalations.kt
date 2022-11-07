@@ -1,7 +1,5 @@
 package com.dirzaaulia.countries.data.model
 
-import com.dirzaaulia.countries.data.model.Timezone.Companion.setDataMap
-import com.dirzaaulia.countries.utils.parseJsonToObject
 import com.squareup.moshi.Json
 
 data class Transalations(
@@ -44,7 +42,7 @@ data class Transalations(
 ) {
   companion object {
 
-    fun Transalations.setDataMap(data: Transalations): Map<String, String> {
+    fun setDataMap(data: Transalations): Map<String, String> {
       return mapOf(
         "Korean" to data.kr,
         "Portugese ( Brazil )" to data.br,
