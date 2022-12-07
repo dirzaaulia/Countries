@@ -1,11 +1,13 @@
 package com.dirzaaulia.countries.data.model
 
+import androidx.annotation.Keep
 import com.dirzaaulia.countries.data.model.Timezone.Companion.setDataMap
 import com.dirzaaulia.countries.data.model.Transalations.Companion.setDataMap
 import com.dirzaaulia.countries.utils.parseJsonToObject
 import com.dirzaaulia.countries.utils.replaceIfNull
 import com.squareup.moshi.Json
 
+@Keep
 data class Country(
 
 	@Json(name="id")

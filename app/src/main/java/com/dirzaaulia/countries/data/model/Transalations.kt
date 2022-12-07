@@ -1,7 +1,9 @@
 package com.dirzaaulia.countries.data.model
 
+import androidx.annotation.Keep
 import com.squareup.moshi.Json
 
+@Keep
 data class Transalations(
 
   @Json(name = "kr")

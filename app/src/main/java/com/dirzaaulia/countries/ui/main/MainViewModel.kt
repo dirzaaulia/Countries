@@ -3,6 +3,7 @@ package com.dirzaaulia.countries.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dirzaaulia.countries.data.model.Country
+import com.dirzaaulia.countries.data.model.State
 import com.dirzaaulia.countries.repository.Repository
 import com.dirzaaulia.countries.utils.ResponseResult
 import com.dirzaaulia.countries.utils.success
@@ -31,6 +32,15 @@ class MainViewModel @Inject constructor(
 
   private val _country: MutableStateFlow<Country?> = MutableStateFlow(null)
   val country = _country.asStateFlow()
+
+  private val _statesState: MutableStateFlow<ResponseResult<List<State>>> =
+    MutableStateFlow(ResponseResult.Success(emptyList()))
+  val statesState = _statesState.asStateFlow()
+
+
+  private val _states: MutableStateFlow<List<State>> =
+    MutableStateFlow(emptyList())
+  val states = _states.asStateFlow()
 
   private val _selectedTab: MutableStateFlow<Int> = MutableStateFlow(0)
   val selectedTab = _selectedTab.asStateFlow()
@@ -63,6 +73,17 @@ class MainViewModel @Inject constructor(
       .onEach {
         _countryState.value = it
         it.success { country -> _country.value = country }
+      }
+      .launchIn(viewModelScope)
+  }
+
+  fun getStatesFromCountry(iso2: String) {
+    repository.getStatesFromCountry(iso2)
+      .onEach {
+        _statesState.value = it
+        it.success { list ->
+          _states.value = list
+        }
       }
       .launchIn(viewModelScope)
   }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.dirzaaulia.countries.ui.navigation.NavGraph
 import com.dirzaaulia.countries.ui.theme.CountriesTheme
@@ -20,6 +21,7 @@ import timber.log.Timber
 class MainActivity : ComponentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    installSplashScreen()
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
     val isDynamicColor = DynamicColors.isDynamicColorAvailable()

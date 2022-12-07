@@ -34,77 +34,22 @@ fun CountryInformationTab(
             ) {
                 if (isPlaceholder) {
                     repeat(20) {
-                        CountryInformationItemPlaceholder()
+                        CountryDetailItemPlaceholder()
                     }
                 } else {
                     country?.let {
-                        Country.setDataMap(it).map { map ->
-                            CountryInformationItem(map = map)
+                        Country.setDataMap(it).forEach { map ->
+                            CountryDetailItem(map = map)
                         }
                     }
-                    timezonesMap?.map { map ->
-                        CountryInformationItem(map = map)
+                    timezonesMap?.forEach { map ->
+                        CountryDetailItem(map = map)
                     }
-                    translationsMap?.map { map ->
-                        CountryInformationItem(map = map)
+                    translationsMap?.forEach { map ->
+                        CountryDetailItem(map = map)
                     }
                 }
             }
         }
     }
-}
-
-@Composable
-fun CountryInformationItem(map: Map.Entry<String, String>) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-    ) {
-        Column (
-            modifier = Modifier.padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = map.key,
-                style = MaterialTheme.typography.headlineMedium
-            )
-
-            if (map.key == "Flag") {
-                Card {
-                    NetworkImage(url = map.value)
-                }
-            } else {
-                val formattedValue = if (map.value.contains("U+")) {
-                    map.value.unicodeEmojiToHtmlEmoji().toString()
-                } else {
-                    map.value
-                }
-
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = formattedValue,
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun CountryInformationItemPlaceholder() {
-    val randomHeight = Random.nextInt(56, 144)
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-            .height(randomHeight.dp)
-            .placeholder(
-                visible = true,
-                color = MaterialTheme.colorScheme.surfaceVariant,
-                highlight = PlaceholderHighlight.shimmer()
-            )
-    ) {}
 }

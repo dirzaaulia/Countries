@@ -1,10 +1,12 @@
 package com.dirzaaulia.countries.data.model
 
+import androidx.annotation.Keep
 import com.dirzaaulia.countries.utils.parseJsonToObject
 import com.dirzaaulia.countries.utils.replaceIfNull
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+@Keep
 @JsonClass(generateAdapter = true)
 data class Timezone(
 
