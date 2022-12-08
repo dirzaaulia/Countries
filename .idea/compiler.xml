@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17">
+    <bytecodeTargetLevel target="11">
       <module name="All_About_Valorant.buildSrc" target="11" />
       <module name="All_About_Valorant.buildSrc.main" target="11" />
       <module name="All_About_Valorant.buildSrc.test" target="11" />
-      <module name="Countries.buildSrc" target="11" />
-      <module name="Countries.buildSrc.main" target="11" />
-      <module name="Countries.buildSrc.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
