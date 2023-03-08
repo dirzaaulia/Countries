@@ -11,6 +11,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dirzaaulia.countries.R
+import com.dirzaaulia.countries.ui.common.NetworkImage
 import com.dirzaaulia.countries.ui.main.MainViewModel
 import com.dirzaaulia.countries.utils.*
 import com.google.accompanist.placeholder.PlaceholderHighlight
@@ -68,20 +69,25 @@ fun Country(
           tabIndex = selectedTab,
           viewModel = viewModel
         )
-        Crossfade(targetState = CountryTab.getTabFromResource(selectedTab)) { destination ->
+        Crossfade(
+          targetState = CountryTab.getTabFromResource(selectedTab),
+          label = stringResource(R.string.country_tab)
+        ) { destination ->
           when (destination) {
             CountryTab.INFORMATION -> {
               CountryInformationTab(
                 country = country,
                 timezonesMap = timezonesMap,
                 translationsMap = translationsMap,
-                isPlaceholder = countryState.isLoading
+                responseResult = countryState,
+                retry = { iso2?.let { viewModel.getCountryDetailWithISO2(it) } }
               )
             }
             CountryTab.STATE -> {
               CountryStateTab(
                 stateList = states,
-                isPlaceholder = statesState.isLoading
+                responseResult = statesState,
+                retry = { iso2?.let { viewModel.getStatesFromCountry(it) } }
               )
             }
           }

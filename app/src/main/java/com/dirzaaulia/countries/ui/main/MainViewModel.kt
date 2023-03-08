@@ -23,9 +23,6 @@ class MainViewModel @Inject constructor(
     MutableStateFlow(ResponseResult.Success(null))
   val countriesState = _countriesState.asStateFlow()
 
-  private val _countries: MutableStateFlow<List<Country>> = MutableStateFlow(emptyList())
-  val countries = _countries.asStateFlow()
-
   private val _countryState: MutableStateFlow<ResponseResult<Country?>> =
     MutableStateFlow(ResponseResult.Success(null))
   val countryState = _countryState.asStateFlow()
@@ -36,7 +33,6 @@ class MainViewModel @Inject constructor(
   private val _statesState: MutableStateFlow<ResponseResult<List<State>>> =
     MutableStateFlow(ResponseResult.Success(emptyList()))
   val statesState = _statesState.asStateFlow()
-
 
   private val _states: MutableStateFlow<List<State>> =
     MutableStateFlow(emptyList())
@@ -57,13 +53,10 @@ class MainViewModel @Inject constructor(
     _filter.value = filter
   }
 
-  private fun getCountries() {
+  fun getCountries() {
     repository.getCountries()
       .onEach {
         _countriesState.value = it
-        it.success { response ->
-          _countries.value = response
-        }
       }
       .launchIn(viewModelScope)
   }

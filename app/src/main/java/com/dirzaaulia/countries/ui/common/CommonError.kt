@@ -15,14 +15,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.dirzaaulia.countries.R
+import com.dirzaaulia.countries.utils.Constant
 
 @Composable
 fun CommonError(
     modifier: Modifier = Modifier,
-    errorMessage: String
+    errorMessage: String = Constant.COMMON_ERROR_MESSAGE,
+    retry: () -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -46,7 +50,7 @@ fun CommonError(
             ) {
                 Icon(
                     imageVector = Icons.Filled.SignalWifiBad,
-                    contentDescription = "Signal Wifi Bad",
+                    contentDescription = stringResource(id = R.string.internet_connection_is_bad),
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(100.dp)
                 )
@@ -55,13 +59,12 @@ fun CommonError(
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier
-                        .padding(30.dp)
+                    modifier = Modifier.padding(30.dp)
                 )
                 Button(
-                    onClick = {  },
+                    onClick = retry,
                 ) {
-                    Text(text = "Retry")
+                    Text(text = stringResource(id = R.string.retry))
                 }
 
             }

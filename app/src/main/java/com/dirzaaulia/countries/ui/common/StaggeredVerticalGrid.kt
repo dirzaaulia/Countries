@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.Dp
+import com.dirzaaulia.countries.utils.Constant
 import kotlin.math.ceil
 
 @Composable
@@ -17,7 +18,7 @@ fun StaggeredVerticalGrid(
     modifier = modifier
   ) { measurables, constraints ->
     check(constraints.hasBoundedWidth) {
-      "Unbounded width not supported"
+      Constant.UNBOUNDED_STAGGERED_VERTICAL_GRID_WARNING
     }
     val columns = ceil(constraints.maxWidth / maxColumnWidth.toPx()).toInt()
     val columnWidth = constraints.maxWidth / columns

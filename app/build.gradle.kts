@@ -10,23 +10,24 @@ plugins {
 android {
     signingConfigs {
         getByName("debug") {
-            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
-            storePassword = AppConfig.KeyStore.password
-            keyAlias = AppConfig.KeyStore.alias
-            keyPassword = AppConfig.KeyStore.password
+//            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
+//            storePassword = AppConfig.KeyStore.password
+//            keyAlias = AppConfig.KeyStore.alias
+//            keyPassword = AppConfig.KeyStore.password
         }
         create("release") {
-            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
-            storePassword = AppConfig.KeyStore.password
-            keyAlias = AppConfig.KeyStore.alias
-            keyPassword = AppConfig.KeyStore.password
+//            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
+//            storePassword = AppConfig.KeyStore.password
+//            keyAlias = AppConfig.KeyStore.alias
+//            keyPassword = AppConfig.KeyStore.password
         }
     }
 
+    namespace = AppConfig.namespace
     compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = AppConfig.applicationId
+        applicationId = AppConfig.namespace
         minSdk = AppConfig.minSdk
         targetSdk = AppConfig.targetSdk
         versionCode = AppConfig.versionCode
@@ -61,6 +62,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    kotlin {
+        jvmToolchain {
+            this.languageVersion.set(JavaLanguageVersion.of(11))
+        }
+    }
+
     kotlinOptions {
         jvmTarget = "11"
 
@@ -71,7 +78,8 @@ android {
             "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi" +
             "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi" +
             "-opt-in=androidx.compose.material.ExperimentalMaterialApi" +
-            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
+            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi" +
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
     }
 
     buildFeatures {
@@ -109,22 +117,18 @@ dependencies {
     implementation(Dependencies.Material.implementation)
     implementation(Dependencies.Other.implementation)
     implementation(Dependencies.Paging.implementation)
-    implementation(Dependencies.Room.implementation)
     implementation(Dependencies.SquareUp.implementation)
 
     // Kapt
     kapt(Dependencies.Hilt.kapt)
-    kapt(Dependencies.Room.kapt)
 
     // Debug Implementation
-    debugImplementation(Dependencies.AndroidX.Compose.debugImplementation)
     debugImplementation(Dependencies.Chucker.debugImplementation)
 
     // Release Implementation
     releaseImplementation(Dependencies.Chucker.releaseImplementation)
 
     // Android Test Implementation
-    androidTestImplementation(Dependencies.AndroidX.Compose.androidTestImplementation)
     androidTestImplementation(Dependencies.AndroidX.Test.androidTestImplementation)
     androidTestImplementation(Dependencies.JUnit.androidTestImplementation)
 }

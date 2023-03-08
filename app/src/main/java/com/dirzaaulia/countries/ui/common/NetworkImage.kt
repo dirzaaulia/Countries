@@ -1,4 +1,4 @@
-package com.dirzaaulia.countries.utils
+package com.dirzaaulia.countries.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

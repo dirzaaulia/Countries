@@ -8,7 +8,7 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class App: Application(), ImageLoaderFactory {
+class  App: Application(), ImageLoaderFactory {
 
   override fun onCreate() {
     super.onCreate()

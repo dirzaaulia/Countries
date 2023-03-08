@@ -2,21 +2,16 @@ package com.dirzaaulia.countries.ui.country.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dirzaaulia.countries.data.model.Country
+import com.dirzaaulia.countries.ui.common.CommonError
 import com.dirzaaulia.countries.ui.common.StaggeredVerticalGrid
-import com.dirzaaulia.countries.utils.NetworkImage
-import com.dirzaaulia.countries.utils.unicodeEmojiToHtmlEmoji
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.placeholder
-import com.google.accompanist.placeholder.material.shimmer
-import kotlin.random.Random
+import com.dirzaaulia.countries.utils.ResponseResult
+import com.dirzaaulia.countries.utils.error
+import com.dirzaaulia.countries.utils.isError
+import com.dirzaaulia.countries.utils.visible
 
 @Composable
 fun CountryInformationTab(
@@ -24,7 +19,8 @@ fun CountryInformationTab(
     country: Country?,
     timezonesMap: Map<String, String>?,
     translationsMap: Map<String, String>?,
-    isPlaceholder: Boolean
+    responseResult: ResponseResult<Country?>,
+    retry: () -> Unit
 ) {
     LazyColumn {
         item {
@@ -32,21 +28,36 @@ fun CountryInformationTab(
                 maxColumnWidth = 220.dp,
                 modifier = modifier.padding(4.dp)
             ) {
-                if (isPlaceholder) {
-                    repeat(20) {
+                when (responseResult) {
+                    ResponseResult.Loading -> repeat(20) {
                         CountryDetailItemPlaceholder()
                     }
-                } else {
-                    country?.let {
-                        Country.setDataMap(it).forEach { map ->
+                    is ResponseResult.Success -> {
+                        country?.let {
+                            Country.setDataMap(it).forEach { map ->
+                                CountryDetailItem(map = map)
+                            }
+                        }
+                        timezonesMap?.forEach { map ->
+                            CountryDetailItem(map = map)
+                        }
+                        translationsMap?.forEach { map ->
                             CountryDetailItem(map = map)
                         }
                     }
-                    timezonesMap?.forEach { map ->
-                        CountryDetailItem(map = map)
-                    }
-                    translationsMap?.forEach { map ->
-                        CountryDetailItem(map = map)
+
+                    else -> {}
+                }
+            }
+        }
+        when {
+            responseResult.isError -> {
+                responseResult.error { throwable ->
+                    item {
+                        CommonError(
+                            errorMessage = throwable.message.toString(),
+                            retry = retry
+                        )
                     }
                 }
             }
