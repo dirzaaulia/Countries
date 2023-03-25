@@ -8,18 +8,19 @@ plugins {
 }
 
 android {
+
     signingConfigs {
         getByName("debug") {
-//            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
-//            storePassword = AppConfig.KeyStore.password
-//            keyAlias = AppConfig.KeyStore.alias
-//            keyPassword = AppConfig.KeyStore.password
+            storeFile = file("/Users/dirzaaulia/keystore/keystore.jks")
+            storePassword = "stravinsky9"
+            keyAlias = "keydirza"
+            keyPassword = "stravinsky9"
         }
         create("release") {
-//            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
-//            storePassword = AppConfig.KeyStore.password
-//            keyAlias = AppConfig.KeyStore.alias
-//            keyPassword = AppConfig.KeyStore.password
+            storeFile = file("/Users/dirzaaulia/keystore/keystore.jks")
+            storePassword = "stravinsky9"
+            keyAlias = "keydirza"
+            keyPassword = "stravinsky9"
         }
     }
 
@@ -42,7 +43,7 @@ android {
             isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("debug")
         }
@@ -51,7 +52,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("release")
         }

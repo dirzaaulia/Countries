@@ -78,15 +78,15 @@ data class Country(
 			return timezone?.let { timezone.setDataMap() }
 		}
 
-		fun parseTranslationsFromJson(json: String?): Map<String, String>? {
+		fun parseTranslationsFromJson(json: String?): Map<String, String?> {
 			val translations = json?.replace("""[\[\]]""".toRegex(), "")
 				?.parseJsonToObject<Transalations>()
-			return translations?.let { setDataMap(it) }
+			return translations?.let { setDataMap(it) } ?: emptyMap()
 		}
 
 		fun setDataMap(data: Country): Map<String, String> {
 			return mapOf(
-				"Flag" to "https://countryflagsapi.com/png/${data.iso3}",
+				"Flag" to "https://flagcdn.com/w320/${data.iso2?.lowercase()}.png",
 				"Phone Code" to data.phonecode.replaceIfNull("-"),
 				"Capital" to data.capital.replaceIfNull("-"),
 				"Currency" to data.currency.replaceIfNull("-"),

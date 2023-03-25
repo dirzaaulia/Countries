@@ -7,44 +7,44 @@ import com.squareup.moshi.Json
 data class Transalations(
 
   @Json(name = "kr")
-  val kr: String,
+  val kr: String? = null,
 
   @Json(name= "pt-BR")
-  val br: String,
+  val br: String? = null,
 
   @Json(name = "pt")
-  val pt: String,
+  val pt: String? = null,
 
   @Json(name = "nl")
-  val nl: String,
+  val nl: String? = null,
 
   @Json(name = "hr")
-  val hr: String,
+  val hr: String? = null,
 
   @Json(name = "fa")
-  val fa: String,
+  val fa: String? = null,
 
   @Json(name = "de")
-  val de: String,
+  val de: String? = null,
 
   @Json(name = "es")
-  val es: String,
+  val es: String? = null,
 
   @Json(name = "ja")
-  val ja: String,
+  val ja: String? = null,
 
   @Json(name = "it")
-  val it: String,
+  val it: String? = null,
 
   @Json(name = "cn")
-  val cn: String,
+  val cn: String? = null,
 
   @Json(name = "tr")
-  val tr: String
+  val tr: String? = null
 ) {
   companion object {
 
-    fun setDataMap(data: Transalations): Map<String, String> {
+    fun setDataMap(data: Transalations): Map<String, String?> {
       return mapOf(
         "Korean" to data.kr,
         "Portugese ( Brazil )" to data.br,
