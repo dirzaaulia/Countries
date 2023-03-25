@@ -1,5 +1,6 @@
 package com.dirzaaulia.countries.ui.country.list
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -54,6 +55,7 @@ import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun CountryList(
     viewModel: MainViewModel,
@@ -81,11 +83,9 @@ fun CountryList(
                 )
             }
         }
-    ) { padding ->
+    ) {
         Column(
-            modifier = Modifier
-                .padding(padding)
-                .statusBarsPadding()
+            modifier = Modifier.statusBarsPadding()
         ) {
             CountryFilter(
                 viewModel = viewModel,
