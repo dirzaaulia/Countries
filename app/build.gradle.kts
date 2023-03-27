@@ -11,13 +11,13 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
+            storeFile = file("/Users/dirzaaulia/keystore/keystore.jks")
             storePassword = "stravinsky9"
             keyAlias = "keydirza"
             keyPassword = "stravinsky9"
         }
         create("release") {
-            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
+            storeFile = file("/Users/dirzaaulia/keystore/keystore.jks")
             storePassword = "stravinsky9"
             keyAlias = "keydirza"
             keyPassword = "stravinsky9"

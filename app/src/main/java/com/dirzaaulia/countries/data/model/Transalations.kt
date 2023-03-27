@@ -1,6 +1,7 @@
 package com.dirzaaulia.countries.data.model
 
 import androidx.annotation.Keep
+import com.dirzaaulia.countries.utils.replaceIfNull
 import com.squareup.moshi.Json
 
 @Keep
@@ -44,20 +45,20 @@ data class Transalations(
 ) {
   companion object {
 
-    fun setDataMap(data: Transalations): Map<String, String?> {
+    fun setDataMap(data: Transalations): Map<String, String> {
       return mapOf(
-        "Korean" to data.kr,
-        "Portugese ( Brazil )" to data.br,
-        "Portugese" to data.pt,
-        "Dutch" to data.nl,
-        "Croatian" to data.hr,
-        "Farsi" to data.fa,
-        "Denmark" to data.de,
-        "Spanish" to data.es,
-        "Japanese" to data.ja,
-        "Italian" to data.it,
-        "Chinese" to data.cn,
-        "Turki" to data.tr
+        "Korean" to data.kr.replaceIfNull(),
+        "Portugese ( Brazil )" to data.br.replaceIfNull(),
+        "Portugese" to data.pt.replaceIfNull(),
+        "Dutch" to data.nl.replaceIfNull(),
+        "Croatian" to data.hr.replaceIfNull(),
+        "Farsi" to data.fa.replaceIfNull(),
+        "Denmark" to data.de.replaceIfNull(),
+        "Spanish" to data.es.replaceIfNull(),
+        "Japanese" to data.ja.replaceIfNull(),
+        "Italian" to data.it.replaceIfNull(),
+        "Chinese" to data.cn.replaceIfNull(),
+        "Turki" to data.tr.replaceIfNull()
       )
     }
   }

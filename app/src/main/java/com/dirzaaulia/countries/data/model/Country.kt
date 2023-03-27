@@ -78,7 +78,7 @@ data class Country(
 			return timezone?.let { timezone.setDataMap() }
 		}
 
-		fun parseTranslationsFromJson(json: String?): Map<String, String?> {
+		fun parseTranslationsFromJson(json: String?): Map<String, String> {
 			val translations = json?.replace("""[\[\]]""".toRegex(), "")
 				?.parseJsonToObject<Transalations>()
 			return translations?.let { setDataMap(it) } ?: emptyMap()

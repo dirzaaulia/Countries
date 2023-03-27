@@ -20,7 +20,6 @@ import com.google.accompanist.placeholder.material.shimmer
 import kotlin.random.Random
 import com.dirzaaulia.countries.data.model.Country as CountryModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Country(
     viewModel: MainViewModel,
@@ -48,52 +47,53 @@ fun Country(
         }
     }
 
-  Scaffold(
-    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-    topBar = {
-      TopAppBar(
-        title = {
-          Text(
-            text = name.replaceIfNull()
-          )
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = name.replaceIfNull()
+                    )
+                },
+                scrollBehavior = scrollBehavior
+            )
         },
-        scrollBehavior = scrollBehavior
-      )
-    },
-    content = { innerPadding ->
-      val innerModifier = Modifier.padding(innerPadding)
-      Column(modifier = innerModifier) {
-        CountryTabMenu(
-          tabs = CountryTab.values(),
-          tabIndex = selectedTab,
-          viewModel = viewModel
-        )
-        Crossfade(
-          targetState = CountryTab.getTabFromResource(selectedTab),
-          label = stringResource(R.string.country_tab)
-        ) { destination ->
-          when (destination) {
-            CountryTab.INFORMATION -> {
-              CountryInformationTab(
-                country = country,
-                timezonesMap = timezonesMap,
-                translationsMap = translationsMap,
-                responseResult = countryState,
-                retry = { iso2?.let { viewModel.getCountryDetailWithISO2(it) } }
-              )
+        content = { innerPadding ->
+            val innerModifier = Modifier.padding(innerPadding)
+            Column(modifier = innerModifier) {
+                CountryTabMenu(
+                    tabs = CountryTab.values(),
+                    tabIndex = selectedTab,
+                    viewModel = viewModel
+                )
+                Crossfade(
+                    targetState = CountryTab.getTabFromResource(selectedTab),
+                    label = stringResource(R.string.country_tab)
+                ) { destination ->
+                    when (destination) {
+                        CountryTab.INFORMATION -> {
+                            CountryInformationTab(
+                                country = country,
+                                timezonesMap = timezonesMap,
+                                translationsMap = translationsMap,
+                                responseResult = countryState,
+                                retry = { iso2?.let { viewModel.getCountryDetailWithISO2(it) } }
+                            )
+                        }
+
+                        CountryTab.STATE -> {
+                            CountryStateTab(
+                                stateList = states,
+                                responseResult = statesState,
+                                retry = { iso2?.let { viewModel.getStatesFromCountry(it) } }
+                            )
+                        }
+                    }
+                }
             }
-            CountryTab.STATE -> {
-              CountryStateTab(
-                stateList = states,
-                responseResult = statesState,
-                retry = { iso2?.let { viewModel.getStatesFromCountry(it) } }
-              )
-            }
-          }
         }
-      }
-    }
-  )
+    )
 }
 
 @Composable
@@ -114,41 +114,39 @@ fun CountryTabMenu(
 }
 
 @Composable
-fun CountryDetailItem(map: Map.Entry<String, String?>) {
-    map.value?.let { value ->
-        Card(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth()
+fun CountryDetailItem(data: Pair<String, String>) {
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                modifier = Modifier.padding(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = data.first,
+                style = MaterialTheme.typography.headlineMedium
+            )
+
+            if (data.first == "Flag") {
+                Card {
+                    NetworkImage(url = data.second)
+                }
+            } else {
+                val formattedValue = if (data.second.contains("U+")) {
+                    data.second.unicodeEmojiToHtmlEmoji().toString()
+                } else {
+                    data.second
+                }
+
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = map.key,
-                    style = MaterialTheme.typography.headlineMedium
+                    text = formattedValue,
+                    style = MaterialTheme.typography.titleLarge
                 )
-
-                if (map.key == "Flag") {
-                    Card {
-                        NetworkImage(url = value)
-                    }
-                } else {
-                    val formattedValue = if (value.contains("U+")) {
-                        value.unicodeEmojiToHtmlEmoji().toString()
-                    } else {
-                        value
-                    }
-
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = formattedValue,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
             }
         }
     }
@@ -158,13 +156,13 @@ fun CountryDetailItem(map: Map.Entry<String, String?>) {
 fun CountryDetailItem(value: String) {
     Card(
         modifier = Modifier
-          .padding(8.dp)
-          .fillMaxWidth()
+            .padding(8.dp)
+            .fillMaxWidth()
     ) {
         Text(
             modifier = Modifier
-              .padding(16.dp)
-              .fillMaxWidth(),
+                .padding(16.dp)
+                .fillMaxWidth(),
             text = value,
             style = MaterialTheme.typography.headlineLarge
         )
@@ -176,14 +174,14 @@ fun CountryDetailItemPlaceholder() {
     val randomHeight = Random.nextInt(56, 144)
     Card(
         modifier = Modifier
-          .padding(8.dp)
-          .fillMaxWidth()
-          .height(randomHeight.dp)
-          .placeholder(
-            visible = true,
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            highlight = PlaceholderHighlight.shimmer()
-          )
+            .padding(8.dp)
+            .fillMaxWidth()
+            .height(randomHeight.dp)
+            .placeholder(
+                visible = true,
+                color = MaterialTheme.colorScheme.surfaceVariant,
+                highlight = PlaceholderHighlight.shimmer()
+            )
     ) {}
 }
 
